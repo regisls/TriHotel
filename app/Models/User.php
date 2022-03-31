@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'Name', 'Email', 'Password', 'Image', 'ApiKey'
     ];
 
     /**
@@ -28,6 +28,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'Password'
     ];
+
+    protected $table = 'User';
+    protected $primaryKey = 'Id';
 }

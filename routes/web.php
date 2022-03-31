@@ -19,7 +19,12 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'categorias'], function() use ($router) {
+$router->group(['prefix' => '/api/user'], function() use ($router) {
+    $router->post('/login', 'UserController@login');
+    $router->post('/register', 'UserController@register');
+});
+
+$router->group(['prefix' => 'api/categorias'], function() use ($router) {
     $router->get('/', 'CategoriaController@getAll');
     $router->get('/{id}', 'CategoriaController@show');
     $router->post('/', 'CategoriaController@insert');

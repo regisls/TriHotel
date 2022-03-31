@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Auth;
 
 class CategoriaController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoriaController extends Controller
      */
     public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
 
     public function getAll() 
