@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\AppResponse;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -23,7 +24,7 @@ class CategoriaController extends Controller
         $categorias = Categoria::all();
         if (!empty($categorias))
         {
-            return response()->json($categorias);
+            return AppResponse::success($categorias);
         }
     }
 
@@ -31,17 +32,26 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
 
-        return response()->json($categoria);
+        return AppResponse::success($categoria);
     }
 
     public function insert(Request $request)
     {
-        $categoria = new Categoria;
-        $categoria->fill($request->all());
+        $existe = Categoria::where('Descricao', $request->input('Descricao'))->first();
 
-        $categoria->save();
-        
-        return response('', 201);
+        if (empty($existe))
+        {
+            $categoria = new Categoria;
+            $categoria->fill($request->all());
+
+            $categoria->save();
+
+            return AppResponse::emptySuccess();
+        }
+        else
+        {
+            return AppResponse::error('Já existe uma categoria cadastrada com esta descrição');
+        }
     }
 
     public function update(Request $request, $id)
@@ -52,13 +62,13 @@ class CategoriaController extends Controller
                 'Ativo' => $request->boolean('Ativo')
             ]);
 
-        return response('', 200);
+        return AppResponse::success($atualizado);
     }
 
     public function delete(Request $request, $id)
     {
         $excluido = Categoria::where('Id', $id)->delete();
 
-        return response('', 204);
+        return AppResponse::emptySuccess(204);
     }
 }

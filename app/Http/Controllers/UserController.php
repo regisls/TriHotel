@@ -34,7 +34,10 @@ class UserController extends Controller
             }
         }
 
-        return response()->json(['error' => 'Usuário ou senha inválidos'], 401);
+        return response()->json([
+            'error' => true, 
+            'message' => 'Usuário ou senha inválidos'
+        ], 401);
     }
 
     public function logout(Request $request)
@@ -49,10 +52,16 @@ class UserController extends Controller
                     'ApiKey' => null
                 ]);
 
-            return response()->json(['message' => 'Logout realizado com sucesso'], 200);
+            return response()->json([
+                'error' => false, 
+                'message' => 'Logout realizado com sucesso'
+            ], 200);
         }
 
-        return response()->json(['error' => 'Usuário não encontrado'], 401);
+        return response()->json([
+            'error' => false, 
+            'message' => 'Usuário não encontrado'
+        ], 401);
     }
 
     public function changePassword(Request $request)
@@ -69,11 +78,17 @@ class UserController extends Controller
                         'Password' => Hash::make($request->input('NewPassword'))
                     ]);
 
-                return response()->json(['message' => 'Senha alterada com sucesso'], 200);
+                return response()->json([
+                    'error' => false, 
+                    'message' => 'Senha alterada com sucesso'
+                ], 200);
             }
         }
 
-        return response()->json(['error' => 'Usuário não encontrado'], 401);
+        return response()->json([
+            'error' => true, 
+            'message' => 'Usuário não encontrado'
+        ], 401);
     }
 
     public function register(Request $request)
@@ -99,6 +114,9 @@ class UserController extends Controller
             return response()->json($user);
         }
 
-        return response()->json(['error' => 'Usuário já cadastrado'], 401);
+        return response()->json([
+            'error' => true, 
+            'message' => 'Usuário já cadastrado'
+        ], 401);
     }
 }

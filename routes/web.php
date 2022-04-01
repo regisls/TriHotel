@@ -31,3 +31,19 @@ $router->group(['prefix' => 'api/categorias'], function() use ($router) {
     $router->post('/{id}', 'CategoriaController@update');
     $router->delete('/{id}', 'CategoriaController@delete');
 });
+
+$router->group(['prefix' => 'api/transportes'], function() use ($router) {
+    $router->get('/', 'TransporteController@getAll');
+    $router->get('/{id}', 'TransporteController@show');
+    $router->post('/', 'TransporteController@insert');
+    $router->post('/{id}', 'TransporteController@update');
+    $router->delete('/{id}', 'TransporteController@delete');
+});
+
+$router->group(['prefix' => 'api/motivacoes'], function() use ($router) {
+    $router->get('/', 'MotivacaoController@getAll');
+    $router->get('/{id}', 'MotivacaoController@show');
+    $router->post('/', 'MotivacaoController@insert');
+    $router->post('/{id}', 'MotivacaoController@update');
+    $router->delete('/{id}', 'MotivacaoController@delete');
+});

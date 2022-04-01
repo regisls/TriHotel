@@ -10,6 +10,10 @@ class Categoria extends Model {
         'Descricao', 'Ativo', 'created_at', 'updated_at'
     ];
 
+    protected $hidden = [
+        'Id'
+    ];
+
     protected $table = 'Categoria';
     protected $primaryKey = 'Id';
 }
