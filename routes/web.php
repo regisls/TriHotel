@@ -19,6 +19,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+/* Rotas relacionadas ao usuário */
 $router->group(['prefix' => '/api/user'], function() use ($router) {
     $router->post('/login', 'UserController@login');
     $router->post('/register', 'UserController@register');
@@ -46,4 +47,23 @@ $router->group(['prefix' => 'api/motivacoes'], function() use ($router) {
     $router->post('/', 'MotivacaoController@insert');
     $router->post('/{id}', 'MotivacaoController@update');
     $router->delete('/{id}', 'MotivacaoController@delete');
+});
+
+$router->group(['prefix' => 'api/paises'], function() use ($router) {
+    $router->get('/', 'PaisController@getAll');
+    $router->get('/{id}', 'PaisController@show');
+    $router->get('/{id}/estados', 'PaisController@getEstados');
+    $router->post('/', 'PaisController@insert');
+    $router->post('/{id}', 'PaisController@update');
+    $router->delete('/{id}', 'PaisController@delete');
+});
+
+$router->group(['prefix' => 'api/ufs'], function() use ($router) {
+    $router->get('/', 'UFController@getAll');
+    $router->get('/{id}', 'UFController@show');    
+    $router->post('/', 'UFController@insert');
+    $router->post('/{id}', 'UFController@update');
+    $router->delete('/{id}', 'UFController@delete');
+    $router->get('/{id}/cidades', 'UFController@getCidades');
+    $router->get('/{id}/pais', 'UFController@getPais');
 });
