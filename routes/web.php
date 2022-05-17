@@ -60,10 +60,42 @@ $router->group(['prefix' => 'api/paises'], function() use ($router) {
 
 $router->group(['prefix' => 'api/ufs'], function() use ($router) {
     $router->get('/', 'UFController@getAll');
-    $router->get('/{id}', 'UFController@show');    
+    $router->get('/{id}', 'UFController@show');
+    $router->get('/{id}/cidades', 'UFController@getCidades');
+    $router->get('/{id}/pais', 'UFController@getPais');
     $router->post('/', 'UFController@insert');
     $router->post('/{id}', 'UFController@update');
     $router->delete('/{id}', 'UFController@delete');
-    $router->get('/{id}/cidades', 'UFController@getCidades');
-    $router->get('/{id}/pais', 'UFController@getPais');
+});
+
+$router->group(['prefix' => 'api/cidades'], function() use ($router) {
+    $router->get('/', 'CidadeController@getAll');
+    $router->get('/{id}', 'CidadeController@show');
+    $router->post('/', 'CidadeController@insert');
+    $router->post('/{id}', 'CidadeController@update');
+    $router->delete('/{id}', 'CidadeController@delete');
+});
+
+$router->group(['prefix' => 'api/tiposdocumentos'], function() use ($router) {
+    $router->get('/', 'TipoDocumentoController@getAll');
+    $router->get('/{id}', 'TipoDocumentoController@show');
+    $router->post('/', 'TipoDocumentoController@insert');
+    $router->post('/{id}', 'TipoDocumentoController@update');
+    $router->delete('/{id}', 'TipoDocumentoController@delete');
+});
+
+$router->group(['prefix' => 'api/grupospessoas'], function() use ($router) {
+    $router->get('/', 'GrupoPessoaController@getAll');
+    $router->get('/{id}', 'GrupoPessoaController@show');
+    $router->post('/', 'GrupoPessoaController@insert');
+    $router->post('/{id}', 'GrupoPessoaController@update');
+    $router->delete('/{id}', 'GrupoPessoaController@delete');
+});
+
+$router->group(['prefix' => 'api/pessoas'], function() use ($router) {
+    $router->get('/', 'PessoaController@getAll');
+    $router->get('/{id}', 'PessoaController@show');
+    $router->post('/', 'PessoaController@insert');
+    $router->post('/{id}', 'PessoaController@update');
+    $router->delete('/{id}', 'PessoaController@delete');
 });

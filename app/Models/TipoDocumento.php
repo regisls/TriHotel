@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transporte extends Model
+class TipoDocumento extends Model
 {
     protected $fillable = [
         'Descricao',
         'Ativo',
-        'CodigoIntegracao'
+        'ParaExtrangeiros',
     ];
 
-    protected $table = 'Transporte';
+    protected $table = 'TipoDocumento';
     protected $primaryKey = 'Id';
 }

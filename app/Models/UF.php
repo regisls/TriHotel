@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class UF extends Model
 {
     protected $fillable = [
-        'Sigla', 'Nome', 'CodigoIBGE', 'PaisId'
+        'Sigla',
+        'Nome',
+        'CodigoIBGE',
+        'PaisId'
     ];
 
     protected $table = 'UF';

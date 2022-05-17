@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppResponse;
 use App\Models\Cidade;
+use App\Models\UF;
 use Illuminate\Http\Request;
 
 class CidadeController extends Controller
@@ -70,5 +71,43 @@ class CidadeController extends Controller
         $cidade->delete();
 
         return AppResponse::emptySuccess();
+    }
+
+    public function findByCEP($cep)
+    {
+        $cidade = Cidade::where('CEP', $cep)->first();
+
+        if (!empty($cidade))
+        {
+            return AppResponse::success($cidade);
+        }
+        else
+        {
+            // get city info on viacep api and insert in database
+            $cidade = $this->getCityInfo($cep);
+
+            $url = 'https://viacep.com.br/ws/' . $cep . '/json/';
+            $curl = curl_init();
+            
+        }
+
+        return AppResponse::success($cidade);
+    }
+
+    private function getCityInfo($cep)
+    {
+        $url = 'https://viacep.com.br/ws/' . $cep . '/json/';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        $result = json_decode($result, true);
+
+        $cidade = new Cidade();
+        $cidade->Nome = $result['localidade'];
+        $cidade->UFId = UF::where('Sigla', $result['uf'])->first()->Id;
+        $cidade->CEP = $result['cep'];
+        $cidade->save();
     }
 }
