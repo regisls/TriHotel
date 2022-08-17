@@ -25,4 +25,9 @@ class Unidade extends Model
 
     protected $table = 'Unidade';
     protected $primaryKey = 'Id';
+
+    public function cidade()
+    {
+        return $this->belongsTo('App\Models\Cidade', 'CidadeId');
+    }
 }
